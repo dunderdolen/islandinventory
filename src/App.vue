@@ -37,6 +37,7 @@ export default {
         }
     },
     mounted(){
+        
         var self = this;
 
         Firebase.auth().onAuthStateChanged(function(user) {
