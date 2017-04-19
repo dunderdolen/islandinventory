@@ -1,10 +1,10 @@
-//Import components and libraries
+
 import Vue from 'vue'
 import router from './router'
 import VueFire from 'vuefire'
 import Firebase from 'firebase'
 import App from './App'
-import Welcome from './components/Welcome'
+import Welcome from './components/welcome'
 import BootstrapVue from 'bootstrap-vue/dist/bootstrap-vue.esm';
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
@@ -13,9 +13,10 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 Vue.use(BootstrapVue)
 Vue.use(VueFire)
 
-//Declare component to use them in other Vue components
-Vue.component('Welcome', Welcome);
+//Components registered as below can be used 
+Vue.component('welcome', Welcome);
 
+//Creating a new vue and connect the el property to the index.html app
 new Vue({
   el: '#app',
   router,
