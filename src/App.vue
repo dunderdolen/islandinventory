@@ -1,13 +1,17 @@
 <template>
   <div id="app">
     <img src="./assets/logo.png"/>
-    <form v-if="!isAuthorized" v-on:submit.prevent="signIn">
-        <input type="email" placeholder="Email" v-model="email"/>
-        <input type="password" placeholder="Lösenord" v-model="password"/>
-        <button tpye="submit">Logga in</button>
+
+    <!-- v-model is used for TWO way binding. v-bind is one way binding -->
+    <form id="login-form" v-if="!isAuthorized" v-on:submit.prevent="signIn">
+        <b-form-input v-model="email" type="email" placeholder="Email"></b-form-input>
+        <b-form-input v-model="password" type="password" placeholder="Password"></b-form-input>
+        <b-button size="sm" variant="primary" type="submit" v-bind:buttonMsg='buttonMsg' v-on:click="signIn">{{ buttonMsg }}</b-button>
     </form>
-    <button v-if="isAuthorized" v-on:click="signOut">Sign out</button>
-    
+    <div v-if="isAuthorized">
+        <Welcome></Welcome>
+        <b-button size="sm" variant="primary" v-on:click="signOut" v-bind:buttonMsg='buttonMsg'>{{ buttonMsg }}</b-button>
+    </div>
   </div>  
 </template>
 
@@ -33,51 +37,41 @@ export default {
         return {
             email: '',
             password: '',
+            buttonMsg: '',
             isAuthorized: false
         }
     },
     mounted(){
-        
         var self = this;
-
         Firebase.auth().onAuthStateChanged(function(user) {
             if (user) {
                 self.isAuthorized = true;
-                //Present shit
-                console.log("User is logged in " + user);                
+                self.buttonMsg = "Logga ut";
+                console.log("User is logged in ");                
             }
             else {
                 //Stay on login
+                self.buttonMsg = "Logga in"; 
                 console.log("User is not logged in");
             }
         });
     },
     methods: {        
         signIn () {
-            Firebase.auth().signInWithEmailAndPassword(this.email, this.password);
+            Firebase.auth().signInWithEmailAndPassword(this.email, this.password).catch(function(error) {
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                console.log(errorCode, errorMessage)
+            });
         },
-
         signOut() {
             Firebase.auth().signOut();
             this.isAuthorized = false;
         },
     }
 }
-
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
 
-}
-#app img {
-    display: block;
-    margin: 0 auto;
-}
 </style>
