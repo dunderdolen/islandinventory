@@ -10,7 +10,7 @@
                 <button type="submit" v-bind:buttonMsg='buttonMsg'>{{ buttonMsg }}</button>
             </form>
             <div v-if="isAuthorized">
-                <CreateTodo></CreateTodo>
+                <CreateTodo v-on:create-todo="createTodo"></CreateTodo>
                 <button id="logout-button" v-on:click="signOut" v-bind:buttonMsg='buttonMsg'>{{ buttonMsg }}</button>
             </div>
         </div>
@@ -18,59 +18,59 @@
 </template>
 
 <script>
-    import Firebase from 'firebase'
+import db from './db'
+import Firebase from 'firebase'
 
-    var config = {
-        apiKey: "AIzaSyBdrml5SQC6sGW1AeAEMxFnlXvX84izaPg",
-        authDomain: "islandinventory-98ed2.firebaseapp.com",
-        databaseURL: "https://islandinventory-98ed2.firebaseio.com"
+export default {
+name: 'app',
+firebase: {
+    todos: db.ref('todos')
+},
+data () {
+    return {
+        email: '',
+        password: '',
+        buttonMsg: '',
+        isAuthorized: false
     }
-
-    Firebase.initializeApp(config)
-    var taskRef = Firebase.database().ref('Task');
-
-    export default {
-        name: 'app',
-        firebase: {
-            tasks: taskRef
-        },
-        data () {
-            return {
-                email: '',
-                password: '',
-                buttonMsg: '',
-                isAuthorized: false
-            }
-        },
-        mounted(){
-            var self = this;
-            Firebase.auth().onAuthStateChanged(function(user) {
-                if (user) {
-                    self.isAuthorized = true;
-                    self.buttonMsg = "Logga ut";
-                    console.log("User is logged in ");                
-                }
-                else {
-                    //Stay on login
-                    self.buttonMsg = "Logga in"; 
-                    console.log("User is not logged in");
-                }
-            });
-        },
-        methods: {        
-            signIn () {
-                Firebase.auth().signInWithEmailAndPassword(this.email, this.password).catch(function(error) {
-                    var errorCode = error.code;
-                    var errorMessage = error.message;
-                    console.log(errorCode, errorMessage)
-                });
-            },
-            signOut() {
-                Firebase.auth().signOut();
-                this.isAuthorized = false;
-            },
+},
+mounted(){
+    var self = this;
+    Firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+            self.isAuthorized = true;
+            self.buttonMsg = "Logga ut";
+            console.log("User is logged in ");                
         }
+        else {
+            //Stay on login
+            self.buttonMsg = "Logga in"; 
+            console.log("User is not logged in");
+        }
+    });
+},
+methods: {        
+  signIn() {
+    Firebase.auth().signInWithEmailAndPassword(this.email, this.password).catch(function(error) {
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      console.log(errorCode, errorMessage)
+    });
+  },
+  signOut() {
+    Firebase.auth().signOut();
+    this.isAuthorized = false;
+  },
+  createTodo() {
+    function writeUserData(name, desc) {
+      Firebase.database().ref('todos/').set({
+        name: todo.name,
+        desc: todo.desc
+        });
+      }
     }
+  }
+}
 </script>
 
 <style lang="scss">
