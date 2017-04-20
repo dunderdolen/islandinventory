@@ -4,11 +4,11 @@ import router from './router'
 import VueFire from 'vuefire'
 import Firebase from 'firebase'
 import App from './App'
-import Welcome from './components/welcome'
+import CreateTodo from './components/CreateTodo'
 
 //Register components globally
 Vue.use(VueFire)
-Vue.component('Welcome', Welcome);
+Vue.component('CreateTodo', CreateTodo);
 
 new Vue({
   el: '#app',
