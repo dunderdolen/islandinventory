@@ -2,7 +2,7 @@
   <div id="create-todo">
   <!-- Name, Description, quantity, severity (1-5), save, edit delete -->
   <form class="todo-item" v-on:submit.prevent="createTodo">
-    <div><input v-model="todo.name" required type="text" placeholder="Namn" /></div>
+    <div><input v-model="todo.title" required type="text" placeholder="Titel" /></div>
     <div><textarea v-model="todo.desc" required placeholder="Beskrvining"></textarea></div>
     <button type="submit">Skapa</button>
   </form>
@@ -10,24 +10,27 @@
 </template>
 
 <script>
-import '../db'
+import db from '../db'
 
 export default {
   name: 'CreateTodo',
+  firebase: {
+    ref: db.ref("todos/")
+  },
   data () {
     return {
       todo: {
-        name: '',
-        desc: ''
+        title: '',
+        desc: '',
+        done: false
       }    
     }
   },
   methods: {
-    createTodo (name, desc) {
-       this.$emit('create-todo', {
-          name,
-          desc,
-        });   
+    createTodo () {
+      db.ref("todos/").push({
+        todo: this.todo
+        });
       }
     }
   }

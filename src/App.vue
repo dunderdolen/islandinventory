@@ -10,7 +10,7 @@
                 <button type="submit" v-bind:buttonMsg='buttonMsg'>{{ buttonMsg }}</button>
             </form>
             <div v-if="isAuthorized">
-                <CreateTodo v-on:create-todo="createTodo"></CreateTodo>
+                <CreateTodo></CreateTodo>
                 <button id="logout-button" v-on:click="signOut" v-bind:buttonMsg='buttonMsg'>{{ buttonMsg }}</button>
             </div>
         </div>
@@ -23,9 +23,6 @@ import Firebase from 'firebase'
 
 export default {
 name: 'app',
-firebase: {
-    todos: db.ref('todos')
-},
 data () {
     return {
         email: '',
@@ -60,15 +57,7 @@ methods: {
   signOut() {
     Firebase.auth().signOut();
     this.isAuthorized = false;
-  },
-  createTodo() {
-    function writeUserData(name, desc) {
-      Firebase.database().ref('todos/').set({
-        name: todo.name,
-        desc: todo.desc
-        });
-      }
-    }
+  }
   }
 }
 </script>
