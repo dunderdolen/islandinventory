@@ -1,18 +1,15 @@
-
 import Vue from 'vue'
 import router from './router'
 import VueFire from 'vuefire'
-import Firebase from 'firebase'
 import App from './App'
-import CreateTodo from './components/CreateTodo'
+import Menu from './components/Menu'
 
 //Register components globally
 Vue.use(VueFire)
-Vue.component('CreateTodo', CreateTodo);
+Vue.component('Menu', Menu);
 
 new Vue({
   el: '#app',
   router,
-  template: '<App/>',
-  components: { App }
+  render: h => h(App)
 })

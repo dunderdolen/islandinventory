@@ -10,8 +10,7 @@
                 <button type="submit" v-bind:buttonMsg='buttonMsg'>{{ buttonMsg }}</button>
             </form>
             <div v-if="isAuthorized">
-                <CreateTodo></CreateTodo>
-                <button id="logout-button" v-on:click="signOut" v-bind:buttonMsg='buttonMsg'>{{ buttonMsg }}</button>
+                <Menu></Menu>
             </div>
         </div>
     </main>
