@@ -1,8 +1,13 @@
 <template>
-  <div id="list-todos">
+  <div>
     <ul>
-      <li v-for="todo in todos">
-        {{ todo.desc }}
+      <li v-for="item in anArray">
+        <div>
+          <h2>{{ item.title }} </h2>
+        </div>
+         <div>
+          <h4>{{ item.desc }} </h4>
+         </div> 
       </li>
     </ul>
   </div>
@@ -10,13 +15,20 @@
 
 <script>
 import db from '../db'
-
-let todoRef = db.ref("todos")
-
 export default {
   name: 'ListTodos',
   firebase: {
-    todos: todoRef
+      anArray: db.ref('todos')
   }
 }
 </script>
+
+<style lang="scss">
+#list-todos {
+  grid-column: 1;
+    grid-row: 3;
+    grid-row-gap: 10px;
+    padding: 10px;
+    background-color: white;
+}
+</style>

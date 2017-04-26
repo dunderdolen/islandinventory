@@ -1,6 +1,6 @@
 <template>
 <div>
-  Status:
+  HOME
 </div>
 </template>
 
