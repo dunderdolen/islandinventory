@@ -1,5 +1,5 @@
 <template>
-    <main class="everywhere">
+    <main class="app">
         <div class="content"> 
             <transition name="fade">
                 <div v-if="!isAuthorized">
@@ -37,7 +37,7 @@ var today = new Date();
 console.log(today);
 
 export default {
-    name: 'everywhere',
+    name: 'app',
     data () {
         return {
             email: '',
@@ -97,7 +97,7 @@ time, mark, audio, video{
     font-family: $font;
     list-style: none;
 }
-.everywhere {
+.app {
     background-color: white;
     display: flex;
     flex-direction: column;
