@@ -1,24 +1,32 @@
 <template>
     <main class="everywhere">
-        <div class="content">
-            <!-- v-model is used for TWO way binding. v-bind is one way binding -->
-            <h2 id="welcome-text" v-if="!isAuthorized">Logga in med din email och lösenord</h2>
-            <form class="todo" id="login-form" v-if="!isAuthorized" v-on:submit.prevent="signIn">
-                <input v-model="email" type="email" placeholder="Email"></input>
-                <input v-model="password" type="password" placeholder="Password"></input>
-                <button type="submit" v-bind:buttonMsg='buttonMsg'>{{ buttonMsg }}</button>
-            </form>
-            <router-view></router-view>
+        <div class="content"> 
+            <transition name="fade">
+                <div v-if="!isAuthorized">
+                    <h2 id="welcome-text">Logga in med din email och lösenord</h2>
+                    <form id="login-form" v-on:submit.prevent="signIn">
+                        <input v-model="email" type="email" placeholder="Email"></input>
+                        <input v-model="password" type="password" placeholder="Password"></input>
+                        <button type="submit">Logga in</button>
+                        <div>{{errorMessage}}</div>
+                    </form>
+                </div>
+           </transition>
+           <!-- All component content will render here -->
+           <router-view></router-view>
         </div>
+        <transition name="fade">
         <div v-if="isAuthorized">
             <div id="menu">
                 <ul>
                     <li><router-link to="/home">Hem</router-link></li>
                     <li><router-link to="/create">Skapa</router-link></li>
                     <li><router-link to="/list">Lista</router-link></li>
+                    <li><button @click="signOut">Logga ut</button></li>
                 </ul>
             </div>
         </div>
+        </transition>
     </main>
 </template>
 
@@ -29,42 +37,41 @@ var today = new Date();
 console.log(today);
 
 export default {
-    name: 'app',
-data () {
-    return {
-        email: '',
-        password: '',
-        buttonMsg: '',
-        isAuthorized: false
+    name: 'everywhere',
+    data () {
+        return {
+            email: '',
+            password: '',
+            isAuthorized: false,
+            errorMessage: ''
+        }
+    },
+    mounted(){
+        var self = this;
+        Firebase.auth().onAuthStateChanged(function(user) {
+            if (user) {
+                self.isAuthorized = true;
+                self.email = '';
+                self.password = '';          
+            }
+        });
+    },
+    methods: {        
+    signIn() {
+        var self = this;
+        Firebase.auth().signInWithEmailAndPassword(this.email, this.password).catch(function(error) {
+            var errorMessage = error.message;
+            self.errorMessage = errorMessage;  
+        });
+    },
+    signOut() {
+        var self = this;
+        Firebase.auth().signOut();
+        self.isAuthorized = false;
+        self.email = '';
+        self.password = '';
+        self.errorMessage = '';
     }
-},
-mounted(){
-    var self = this;
-    Firebase.auth().onAuthStateChanged(function(user) {
-        if (user) {
-            self.isAuthorized = true;
-            self.buttonMsg = "Logga ut";
-            console.log("User is logged in ");                
-        }
-        else {
-            //Stay on login
-            self.buttonMsg = "Logga in"; 
-            console.log("User is not logged in");
-        }
-    });
-},
-methods: {        
-  signIn() {
-    Firebase.auth().signInWithEmailAndPassword(this.email, this.password).catch(function(error) {
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      console.log(errorCode, errorMessage)
-    });
-  },
-  signOut() {
-    Firebase.auth().signOut();
-    this.isAuthorized = false;
-  }
   }
 }
 </script>
@@ -135,6 +142,12 @@ time, mark, audio, video{
             }
         }
     }
+}
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
+  opacity: 0
 }
 
 
