@@ -1,0 +1,29 @@
+    <main class="app">
+        <div class="content"> 
+            <transition name="fade">
+                <div v-if="!isAuthorized">
+                    <h2 id="welcome-text">Logga in med din email och lösenord</h2>
+                    <form id="login-form" v-on:submit.prevent="signIn">
+                        <input v-model="email" type="email" placeholder="Email"></input>
+                        <input v-model="password" type="password" placeholder="Password"></input>
+                        <button type="submit">Logga in</button>
+                        <div>{{errorMessage}}</div>
+                    </form>
+                </div>
+           </transition>
+           <!-- All component content will render here -->
+           <router-view></router-view>
+        </div>
+        <transition name="fade">
+        <div v-if="isAuthorized">
+            <div id="menu">
+                <ul>
+                    <li><router-link to="/home">Hem</router-link></li>
+                    <li><router-link to="/create">Skapa</router-link></li>
+                    <li><router-link to="/list">Lista</router-link></li>
+                    <li><button @click="signOut">Logga ut</button></li>
+                </ul>
+            </div>
+        </div>
+        </transition>
+    </main>

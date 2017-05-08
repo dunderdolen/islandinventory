@@ -1,7 +1,3 @@
-<template>
-</template>
-
-<script>
 import db from '../db'
 export default {
   firebase: {
@@ -24,9 +20,3 @@ export default {
       }
     }
   }
-</script>
-<style lang="scss">
-  .todo-item {
-
-  }
-</style>
