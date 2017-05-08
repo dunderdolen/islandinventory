@@ -101,12 +101,11 @@ time, mark, audio, video{
     background-color: white;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     width: 100vw;
     height: 100vh;
 }
-.content {
-    flex-grow: 1;
-}
+
 #welcome-text {
     text-align: center;
     margin: 0 auto;
@@ -120,13 +119,9 @@ time, mark, audio, video{
     background-color: white;
 }
 #login-form input, button {
-    padding: 10px;
-    margin-bottom: 2px;
-    text-align: center;
-    width: 100%;
-    font-size: 16pt;
-    border: 1px solid #ccc;
-    border-radius: 4px;   
+    display: block;
+    width: 85%;
+    margin: 1rem auto;
 }
 
 #menu{
