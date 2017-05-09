@@ -17,6 +17,7 @@
         </div>
         <transition name="fade">
         <div v-if="isAuthorized">
+        <Weather></Weather>
             <div id="menu">
                 <ul>
                     <li><router-link to="/home">Hem</router-link></li>
@@ -32,8 +33,7 @@
 <script>
 import db from './db'
 import Firebase from 'firebase'
-var today = new Date();
-console.log(today);
+import Weather from '@/components/Weather/Weather.vue'
 
 export default {
     name: 'app',
