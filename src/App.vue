@@ -2,15 +2,7 @@
     <main class="app">
         <div class="content"> 
             <transition name="fade">
-                <div id="login-form-wrapper" v-if="!isAuthorized">
-                    <h2>Logga in med din email och lösenord</h2>
-                    <form id="login-form" v-on:submit.prevent="signIn">
-                        <input v-model="email" type="email" placeholder="Email"></input>
-                        <input v-model="password" type="password" placeholder="Password"></input>
-                        <button type="submit">Logga in</button>
-                        <div>{{errorMessage}}</div>
-                    </form>
-                </div>
+               <Login></Login>
            </transition>
            <!-- All component content will render here -->
            <router-view></router-view>
@@ -21,10 +13,8 @@
     </main>
 </template>
 <script>
-import db from './db'
-import Firebase from 'firebase'
-import Weather from '@/components/Weather/Weather.vue'
-import Menu from '@/components/Menu/Menu.vue'
+
+import Login from '@/components/Login/Login.vue'
 export default {
     name: 'app',
     data () {
@@ -94,16 +84,6 @@ time, mark, audio, video{
 
 .content {
     flex-grow: 1;
-}
-
-#login-form-wrapper {
-    justify-content: center;
-}
-
-#login-form input, button {
-    display: block;
-    width: 85%;
-    margin: 1rem auto;
 }
 
 .fade-enter-active, .fade-leave-active {

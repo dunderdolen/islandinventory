@@ -1,0 +1,11 @@
+<div id="login-form-wrapper" v-if="!isAuthorized">
+  <h2>Logga in med din email och lösenord</h2>
+  <form id="login-form" v-on:submit.prevent="signIn">
+    <input v-model="email" type="email" placeholder="Email"></input>
+    <input v-model="password" type="password" placeholder="Password"></input>
+    <button type="submit">Logga in</button>
+    <div>{{errorMessage}}</div>
+  </form>
+
+  <a href="#">Skapa konto</a>
+</div>
