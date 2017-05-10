@@ -2,8 +2,8 @@
     <main class="app">
         <div class="content"> 
             <transition name="fade">
-                <div v-if="!isAuthorized">
-                    <h2 id="welcome-text">Logga in med din email och lösenord</h2>
+                <div id="login-form-wrapper" v-if="!isAuthorized">
+                    <h2>Logga in med din email och lösenord</h2>
                     <form id="login-form" v-on:submit.prevent="signIn">
                         <input v-model="email" type="email" placeholder="Email"></input>
                         <input v-model="password" type="password" placeholder="Password"></input>
@@ -16,17 +16,7 @@
            <router-view></router-view>
         </div>
         <transition name="fade">
-        <div v-if="isAuthorized">
-        <Weather></Weather>
-            <div id="menu">
-                <ul>
-                    <li><router-link to="/home">Hem</router-link></li>
-                    <li><router-link to="/create">Skapa</router-link></li>
-                    <li><router-link to="/list">Lista</router-link></li>
-                    <li><button @click="signOut">Logga ut</button></li>
-                </ul>
-            </div>
-        </div>
+          <Menu v-if="isAuthorized"></Menu>
         </transition>
     </main>
 </template>
@@ -34,7 +24,7 @@
 import db from './db'
 import Firebase from 'firebase'
 import Weather from '@/components/Weather/Weather.vue'
-
+import Menu from '@/components/Menu/Menu.vue'
 export default {
     name: 'app',
     data () {
@@ -91,50 +81,31 @@ menu, nav, output, ruby, section, summary,
 time, mark, audio, video{
     margin: 0;
     padding: 0;
-    font-family: $font;
+    font-family: Helvetica;
     list-style: none;
 }
 .app {
     background-color: white;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     width: 100vw;
     height: 100vh;
 }
 
-#welcome-text {
-    text-align: center;
-    margin: 0 auto;
+.content {
+    flex-grow: 1;
 }
-    
-.todo {
-    grid-column: 1;
-    grid-row: 3;
-    grid-row-gap: 10px;
-    padding: 10px;
-    background-color: white;
+
+#login-form-wrapper {
+    justify-content: center;
 }
+
 #login-form input, button {
     display: block;
     width: 85%;
     margin: 1rem auto;
 }
 
-#menu{
-    ul{
-        display: flex;
-        li{
-            flex: 1;
-            text-align: center;
-            a {
-                display: block;
-                padding: 20px;
-                border: 1px solid red;
-            }
-        }
-    }
-}
 .fade-enter-active, .fade-leave-active {
   transition: opacity .5s
 }
