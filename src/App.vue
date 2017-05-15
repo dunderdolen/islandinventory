@@ -2,7 +2,7 @@
     <main class="app">
         <div class="content"> 
             <transition name="fade">
-               <Login></Login>
+               <Login v-if="!isAuthorized"></Login>
            </transition>
            <!-- All component content will render here -->
            <router-view></router-view>
@@ -15,6 +15,8 @@
 <script>
 
 import Login from '@/components/Login/Login.vue'
+import Menu from '@/components/Menu/Menu.vue'
+import Firebase from 'firebase'
 export default {
     name: 'app',
     data () {
@@ -32,25 +34,10 @@ export default {
                 self.isAuthorized = true;
                 self.email = '';
                 self.password = '';          
+            }else {
+                self.isAuthorized = false;
             }
-        });
-    },
-    methods: {        
-      signIn() {
-          var self = this;
-          Firebase.auth().signInWithEmailAndPassword(this.email, this.password).catch(function(error) {
-              var errorMessage = error.message;
-              self.errorMessage = errorMessage;  
-          });
-      },
-      signOut() {
-          var self = this;
-          Firebase.auth().signOut();
-          self.isAuthorized = false;
-          self.email = '';
-          self.password = '';
-          self.errorMessage = '';
-      }
+        });   
     }
   }
 </script>

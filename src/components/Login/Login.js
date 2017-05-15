@@ -2,7 +2,7 @@ import db from '../../db'
 import Firebase from 'firebase'
 
 export default {
-  name: 'app',
+  name: 'login',
   data () {
     return {
       email: '',
@@ -11,31 +11,13 @@ export default {
       errorMessage: ''
     }
   },
-  mounted() {
-    var self = this;
-    Firebase.auth().onAuthStateChanged(function(user) {
-      if (user) {
-        self.isAuthorized = true;
-        self.email = '';
-        self.password = '';          
-      }
-    });
-  },
-    methods: {        
-      signIn() {
-        var self = this;
-        Firebase.auth().signInWithEmailAndPassword(this.email, this.password).catch(function(error) {
-          var errorMessage = error.message;
-          self.errorMessage = errorMessage;  
-        });
-      },
-      signOut() {
-        var self = this;
-        Firebase.auth().signOut();
-        self.isAuthorized = false;
-        self.email = '';
-        self.password = '';
-        self.errorMessage = '';
-      }
-    }
+  methods: {        
+    signIn() {
+      var self = this;
+      Firebase.auth().signInWithEmailAndPassword(this.email, this.password).catch(function(error) {
+        var errorMessage = error.message;
+        self.errorMessage = errorMessage;  
+      });
+    },
   }
+}
