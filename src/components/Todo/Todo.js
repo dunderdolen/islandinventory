@@ -16,18 +16,24 @@ export default {
   },
   methods: {
     createTodo () {
-      todosRef
-      db.ref("todos/").push({
+      //Push the data to firebase
+      todosRef.push({
         title: this.title,
         desc: this.desc,
         done: this.done
-        });
-      },
-    removeTodo(key) {
-      todosRef.child(key).remove()  
+      });
+      //Reset the input fields
+      this.title = ''
+      this.desc = ''
     },
-    updateTodo(key) {
-      
+    removeTodo(todo) {
+      //Delete todo from firebase
+      todosRef.child(todo).remove()  
+    },
+    updateTodo(todo, title) {
+      //Update the todo
+      todosRef.child(todo['.key']).child('title').set(title)
+
     }
   }
 }
