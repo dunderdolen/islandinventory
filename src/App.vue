@@ -24,7 +24,8 @@ export default {
             email: '',
             password: '',
             isAuthorized: false,
-            errorMessage: ''
+            errorMessage: '',
+            user: ''
         }
     },
     mounted() {
@@ -33,13 +34,18 @@ export default {
             if (user) {
                 self.isAuthorized = true;
                 self.email = '';
-                self.password = '';          
+                self.password = '';
             }else {
                 self.isAuthorized = false;
             }
         });   
+    },
+    methods: {
+        getUser(){
+            var loggedInUser = Firebase.auth().currentUser;
+        }
     }
-  }
+}
 </script>
 
 <style>
@@ -71,6 +77,7 @@ time, mark, audio, video{
 
 .content {
     flex-grow: 1;
+    overflow-y:scroll;
     position: relative;
 }
 

@@ -1,5 +1,6 @@
 import db from '../../db'
 var todosRef = db.ref("todos/")
+var date = new Date().toISOString().slice(0,10);
 export default {
   name: 'Todo',
   firebase: {
@@ -9,7 +10,7 @@ export default {
     return {
       title: '',
       createdBy: '',
-      createdDate: '',
+      createdDate: date,
       isEditing: false,
       isCreating: false
     }
@@ -21,7 +22,8 @@ export default {
     createTodo () {
       this.isCreating = false
         todosRef.push({
-        title: this.title
+        title: this.title,
+        date: this.createdDate
       });
     },
     updateTodo(todo) {
@@ -30,6 +32,12 @@ export default {
     },
     doneUpdating() {
       this.isEditing = false;
+    },
+    show () {
+      this.$modal.show('hello-world');
+    },
+    hide () {
+      this.$modal.hide('hello-world');
     }
   }
 }

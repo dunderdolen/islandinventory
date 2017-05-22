@@ -1,10 +1,9 @@
 <div v-if="isAuthorized">
   <ul>
     <li v-for="todo in todos">
-      <div>
-        {{ todo.title }} 
-        <button @click="removeTodo(todo['.key'])">X</button>
-      </div> 
+      <span>{{ todo.title }}</span><br />
+      <span>{{ todo.date }}</span>
+      <button id="deleteTodo" @click="removeTodo(todo['.key'])">X</button>
     </li>
   </ul>
   <Todo></Todo>
