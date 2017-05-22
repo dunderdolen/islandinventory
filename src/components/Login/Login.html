@@ -1,4 +1,4 @@
-<div id="login-form-wrapper" v-if="!isAuthorized">
+<div id="login-form-wrapper">
   <h2>Logga in med din email och lösenord</h2>
   <form id="login-form" v-on:submit.prevent="signIn">
     <input v-model="email" type="email" placeholder="Email"></input>

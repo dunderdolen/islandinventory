@@ -5,7 +5,7 @@
                <Login v-if="!isAuthorized"></Login>
            </transition>
            <!-- All component content will render here -->
-           <router-view></router-view>
+           <router-view :isAuthorized="isAuthorized"></router-view>
         </div>
         <transition name="fade">
           <Menu v-if="isAuthorized"></Menu>
@@ -71,6 +71,7 @@ time, mark, audio, video{
 
 .content {
     flex-grow: 1;
+    position: relative;
 }
 
 .fade-enter-active, .fade-leave-active {

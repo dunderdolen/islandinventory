@@ -1,25 +1,7 @@
-<div>
-  <!-- List Todos -->
-  <ul>
-    <li v-for="todo in todos">
-      <div>
-        {{ todo.title }} 
-        <button v-on:click="removeTodo(todo['.key'])">X</button>
-        <input v-model="todo.title" @input="updateTodo(todo, $event.target.value)">
-      </div> 
-    </li>
-  </ul>
-  <div>
-  <!-- Create Todo -->
-  <button>+</button>
-  <form class="todo-item" v-on:submit.prevent="createTodo">
-    <div><input v-model="title" required type="text" placeholder="Titel" /></div>
-    <div><textarea v-model="desc" required placeholder="Beskrvining"></textarea></div>
-    <button type="submit">Skapa</button>
-  </form>
+<div id="todo-wrapper">
+  <button id="openForm" @click="openForm">+</button>
+  <div v-show="isCreating">
+    <input v-model="title" required type="text" placeholder="Titel" />
+    <button @click="createTodo">Spara</button>
+  </div>
 </div>
-</div>
-
-
-KOLLA DENNA: https://scotch.io/tutorials/build-a-to-do-app-with-vue-js-2
-

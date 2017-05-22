@@ -1,39 +1,35 @@
 import db from '../../db'
 var todosRef = db.ref("todos/")
 export default {
-  name: 'todo',
+  name: 'Todo',
   firebase: {
     todos: db.ref("todos/")
   },
   data () {
     return {
-    title: '',
-    desc: '',
-    createdBy: '',
-    createdDate: '',
-    done: false
+      title: '',
+      createdBy: '',
+      createdDate: '',
+      isEditing: false,
+      isCreating: false
     }
   },
   methods: {
+    openForm() {
+      this.isCreating = true
+    },
     createTodo () {
-      //Push the data to firebase
-      todosRef.push({
-        title: this.title,
-        desc: this.desc,
-        done: this.done
+      this.isCreating = false
+        todosRef.push({
+        title: this.title
       });
-      //Reset the input fields
-      this.title = ''
-      this.desc = ''
     },
-    removeTodo(todo) {
-      //Delete todo from firebase
-      todosRef.child(todo).remove()  
+    updateTodo(todo) {
+      this.isEditing = true;
+      todosRef.child(todo['.key']).child('title').set(todo, $event.target.value)
     },
-    updateTodo(todo, title) {
-      //Update the todo
-      todosRef.child(todo['.key']).child('title').set(title)
-
+    doneUpdating() {
+      this.isEditing = false;
     }
   }
 }

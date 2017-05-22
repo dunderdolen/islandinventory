@@ -1,5 +1,4 @@
 import Vue from 'vue'
-import VueResource from 'vue-resource'
 import router from './router'
 import VueFire from 'vuefire'
 import App from './App'

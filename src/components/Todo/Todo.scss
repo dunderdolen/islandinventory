@@ -1,7 +1,18 @@
-#list-todos {
-  grid-column: 1;
-  grid-row: 3;
-  grid-row-gap: 10px;
-  padding: 10px;
-  background-color: white;
+
+
+#todo-wrapper{
+  position: absolute;
+    bottom: 1rem;
+    right: 1rem;
 }
+#openForm {
+    border-radius: 45px;
+    width: 3rem;
+    height: 3rem;
+    padding: 0;
+    margin: 0;
+    border: none;
+    background: green;
+    color: white;
+    font-size: 2rem;
+    }

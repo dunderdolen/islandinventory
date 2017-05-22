@@ -4,16 +4,16 @@ import App from '@/App'
 
 Vue.use(Router)
 
-const Todo = resolve => {
-  require.ensure(['../components/Todo/Todo.vue'], () => {
-    resolve(require('../components/Todo/Todo.vue'))
+const TodoList = resolve => {
+  require.ensure(['../components/TodoList/TodoList.vue'], () => {
+    resolve(require('../components/TodoList/TodoList.vue'))
   })
 }
 
 export default new Router({
   routes: [
   { path: '/', name: 'App' },
-  { path: '/todo', component: Todo }
+  { path: '/todoList', component: TodoList }
   ]
 })
 
