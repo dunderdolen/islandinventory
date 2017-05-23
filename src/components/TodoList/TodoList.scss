@@ -3,3 +3,14 @@
   background: red;
   border: none;
 }
+
+.todo-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+}
+
+.todo-item p {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
