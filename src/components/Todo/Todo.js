@@ -17,7 +17,8 @@ export default {
   },
   methods: {
     openForm() {
-      this.isCreating = true
+      this.isCreating = true,
+      this.$modal.show('create-todo')
     },
     createTodo () {
       this.isCreating = false
@@ -25,6 +26,7 @@ export default {
         title: this.title,
         date: this.createdDate
       });
+      this.$modal.hide('create-todo');
     },
     updateTodo(todo) {
       this.isEditing = true;
@@ -32,12 +34,6 @@ export default {
     },
     doneUpdating() {
       this.isEditing = false;
-    },
-    show () {
-      this.$modal.show('hello-world');
-    },
-    hide () {
-      this.$modal.hide('hello-world');
     }
   }
 }

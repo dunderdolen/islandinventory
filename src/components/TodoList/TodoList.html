@@ -1,6 +1,7 @@
 <div v-if="isAuthorized">
+  <header class="header">Inventarie</header>
   <ul>
-    <li class="todo-item" v-for="todo in todos">
+    <li class="todo-item" v-for="todo in todos"> 
       <div>
         <p>{{ todo.title }}</p>
         <span>{{ todo.date }}</span>

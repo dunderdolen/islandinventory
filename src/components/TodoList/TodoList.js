@@ -1,10 +1,11 @@
 import db from '../../db'
 var todosRef = db.ref("todos/")
 import Todo from '../Todo/Todo.vue'
+import Longpress from 'vue-longpress'
 export default {
   name: 'TodoList',
   props: ['isAuthorized'],
-  components: {Todo},
+  components: {Todo, Longpress},
   firebase: {
     todos: db.ref("todos/")
   },
