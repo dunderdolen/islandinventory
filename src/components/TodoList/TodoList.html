@@ -1,13 +1,24 @@
 <div v-if="isAuthorized">
-  <header class="header">Inventarie</header>
+  <header class="header">Att göra</header>
   <ul>
-    <li class="todo-item" v-for="todo in todos"> 
+    <li class="todo-item" v-for="todo in todos" v-on:click="show = !show"> 
       <div>
         <p>{{ todo.title }}</p>
         <span>{{ todo.date }}</span>
       </div>
-      <button id="deleteTodo" @click="removeTodo(todo['.key'])">X</button>
+      <transition name="fade">
+        <button v-if="show" id="deleteTodo" @click="deleteTodo(todo)">X</button>
+      </transition>
     </li>
   </ul>
-  <Todo></Todo>
+  <div id="todo-wrapper">
+    <button id="openForm" @click="openForm">+</button>
+    <div v-show="isCreating" id="create-todo">
+      <modal name="create-todo">
+        <p>Ange namn och tryck på Spara</p>
+        <input v-model="title" required type="text" placeholder="Titel" autofocus/>
+        <button @click="createTodo">Spara</button>
+      </modal>
+    </div>
+  </div>
 </div>
