@@ -5,10 +5,12 @@ import App from './App'
 import Menu from '@/components/Menu/Menu'
 import Login from '@/components/Login/Login'
 import Vmodal from 'vue-js-modal'
+import VueTouch from 'vue-touch'
 
 //Register components globally
 Vue.use(VueFire)
 Vue.use(Vmodal)
+Vue.use(VueTouch)
 
 Vue.component('Menu', Menu)
 Vue.component('Login', Login)

@@ -30,10 +30,26 @@ export default {
         title: this.title,
         date: this.createdDate
       });
+      this.notifyMe(this.title)
       this.$modal.hide('create-todo');
     },
     deleteTodo(todo) {
       todosRef.child(todo['.key']).remove()   
+    },
+    notifyMe(message) {
+      if (!("Notification" in window)) {
+        alert("This browser does not support desktop notification");
+      }
+      else if (Notification.permission === "granted") {
+        var notification = new Notification(message);
+      }
+      else if (Notification.permission !== "denied") {
+        Notification.requestPermission(function (permission) {
+          if (permission === "granted") {
+            var notification = new Notification(message)
+          }
+        });
+      }
     }
   }
 }
